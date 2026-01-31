@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus IT Support - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <!-- Header -->
+        <header class="login-header">
+            <div class="logo">
+                <i class="fas fa-laptop-medical"></i>
+                <div>
+                    <h1>Campus IT Support System</h1>
+                    <p class="tagline">Laptop • Printer • Networking Support</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Login Form -->
+        <main class="login-main">
+            <div class="login-card">
+                <h2><i class="fas fa-sign-in-alt"></i> Login Portal</h2>
+                
+                <div class="login-tabs">
+                    <button class="tab-btn active" data-tab="user">User Login</button>
+                    <button class="tab-btn" data-tab="admin">Admin Login</button>
+                </div>
+
+                <!-- User Login -->
+                <div id="user-login" class="login-form active">
+                    <div class="form-group">
+                        <label for="user-mobile"><i class="fas fa-mobile-alt"></i> Mobile Number</label>
+                        <input type="tel" id="user-mobile" placeholder="Enter 10-digit mobile number" maxlength="10">
+                    </div>
+                    
+                    <button class="btn-login" onclick="userLogin()">
+                        <i class="fas fa-user"></i> Continue as User
+                    </button>
+                    
+                    <p class="login-info">
+                        <i class="fas fa-info-circle"></i>
+                        Use your registered mobile number to access your tickets
+                    </p>
+                </div>
+
+                <!-- Admin Login -->
+                <div id="admin-login" class="login-form">
+                    <div class="form-group">
+                        <label for="admin-username"><i class="fas fa-user-shield"></i> Username</label>
+                        <input type="text" id="admin-username" placeholder="Enter admin username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="admin-password"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="admin-password" placeholder="Enter admin password">
+                    </div>
+                    
+                    <button class="btn-login" onclick="adminLogin()">
+                        <i class="fas fa-user-shield"></i> Admin Login
+                    </button>
+                    
+                    <p class="login-info">
+                        <i class="fas fa-key"></i>
+                        Default: admin / admin123
+                    </p>
+                </div>
+
+                <!-- Quick Access -->
+                <div class="quick-access">
+                    <h3><i class="fas fa-bolt"></i> Quick Access</h3>
+                    <div class="quick-buttons">
+                        <button class="btn-quick" onclick="quickUserAccess()">
+                            <i class="fas fa-plus-circle"></i> Submit New Ticket
+                        </button>
+                        <button class="btn-quick" onclick="guestView()">
+                            <i class="fas fa-eye"></i> View Status (Guest)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="system-info">
+                <h3><i class="fas fa-university"></i> Campus IT Support</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <i class="fas fa-ticket-alt"></i>
+                        <div>
+                            <h4 id="totalTicketsCount">0</h4>
+                            <p>Total Tickets</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4 id="pendingTicketsCount">0</h4>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4 id="resolvedTicketsCount">0</h4>
+                            <p>Resolved</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h4><i class="fas fa-star"></i> Features</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 24/7 Ticket Submission</li>
+                        <li><i class="fas fa-check"></i> Real-time Status Tracking</li>
+                        <li><i class="fas fa-check"></i> Screenshot Upload Support</li>
+                        <li><i class="fas fa-check"></i> Multi-category Issue Reporting</li>
+                        <li><i class="fas fa-check"></i> Admin Dashboard</li>
+                        <li><i class="fas fa-check"></i> No Installation Required</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="login-footer">
+            <p><i class="fas fa-phone"></i> IT Helpdesk: 1800-XXX-XXXX | <i class="fas fa-envelope"></i> support@campus.edu</p>
+            <p>&copy; 2024 Campus IT Support System | All computers on campus</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(`${tabId}-login`).classList.add('active');
+            });
+        });
+
+        // Load stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoginStats();
+        });
+    </script>
+</body>
+</html>

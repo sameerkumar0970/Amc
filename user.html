@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Campus IT Support</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="user-page">
+    <div class="user-container">
+        <!-- Header -->
+        <header class="user-header">
+            <div class="logo">
+                <i class="fas fa-user-circle"></i>
+                <div>
+                    <h1>User Dashboard</h1>
+                    <p class="user-info" id="userInfo">Mobile: <span id="userMobile"></span></p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-header" onclick="goToHome()">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                <button class="btn-header" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="user-nav">
+            <ul>
+                <li><a href="#" class="nav-active" onclick="showSection('new-ticket')"><i class="fas fa-plus-circle"></i> New Ticket</a></li>
+                <li><a href="#" onclick="showSection('my-tickets')"><i class="fas fa-ticket-alt"></i> My Tickets</a></li>
+                <li><a href="#" onclick="showSection('status')"><i class="fas fa-chart-line"></i> Status</a></li>
+                <li><a href="#" onclick="showSection('help')"><i class="fas fa-question-circle"></i> Help</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="user-main">
+            <!-- New Ticket Section -->
+            <section id="new-ticket" class="user-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-square"></i> Submit New Issue</h2>
+                    <p>Report laptop, printer or networking issues</p>
+                </div>
+
+                <form id="ticketForm" class="ticket-form">
+                    <!-- Personal Details -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Your Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userName"><i class="fas fa-user"></i> Full Name *</label>
+                                <input type="text" id="userName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userDept"><i class="fas fa-building"></i> Department *</label>
+                                <select id="userDept" required>
+                                    <option value="">Select Department</option>
+                                    <option value="cse">Computer Science</option>
+                                    <option value="it">IT Department</option>
+                                    <option value="ece">Electronics</option>
+                                    <option value="mech">Mechanical</option>
+                                    <option value="civil">Civil</option>
+                                    <option value="science">Science</option>
+                                    <option value="management">Management</option>
+                                    <option value="admin">Administration</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userEmail"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="userEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="userLocation"><i class="fas fa-map-marker-alt"></i> Location</label>
+                                <select id="userLocation">
+                                    <option value="">Select Location</option>
+                                    <option value="lab1">Computer Lab 1</option>
+                                    <option value="lab2">Computer Lab 2</option>
+                                    <option value="library">Library</option>
+                                    <option value="hostel">Hostel</option>
+                                    <option value="office">Office</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Issue Details -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-exclamation-circle"></i> Issue Details</h3>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-tags"></i> Issue Type *</label>
+                            <div class="category-grid">
+                                <div class="category-card" data-type="laptop">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>Laptop</span>
+                                </div>
+                                <div class="category-card" data-type="printer">
+                                    <i class="fas fa-print"></i>
+                                    <span>Printer</span>
+                                </div>
+                                <div class="category-card" data-type="networking">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Networking</span>
+                                </div>
+                                <div class="category-card" data-type="software">
+                                    <i class="fas fa-code"></i>
+                                    <span>Software</span>
+                                </div>
+                                <div class="category-card" data-type="hardware">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>Hardware</span>
+                                </div>
+                                <div class="category-card" data-type="other">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span>Other</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="issueType" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issueDesc"><i class="fas fa-comment"></i> Description *</label>
+                            <textarea id="issueDesc" rows="4" placeholder="Describe your issue in detail..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-exclamation-triangle"></i> Priority</label>
+                            <div class="priority-levels">
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="low" checked>
+                                    <span class="priority-dot low"></span>
+                                    <span>Low</span>
+                                </label>
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="medium">
+                                    <span class="priority-dot medium"></span>
+                                    <span>Medium</span>
+                                </label>
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="high">
+                                    <span class="priority-dot high"></span>
+                                    <span>High</span>
+                                </label>
+                                <label class="priority-option">
+                                    <input type="radio" name="priority" value="urgent">
+                                    <span class="priority-dot urgent"></span>
+                                    <span>Urgent</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screenshot Upload -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-camera"></i> Attach Screenshot</h3>
+                        <div class="upload-section">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag & drop or click to upload</p>
+                                <small>Max 5MB • JPG, PNG, GIF</small>
+                                <input type="file" id="screenshot" accept="image/*" hidden>
+                            </div>
+                            <div class="file-preview" id="filePreview"></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-clear" onclick="clearForm()">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Ticket
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- My Tickets Section -->
+            <section id="my-tickets" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-ticket-alt"></i> My Tickets</h2>
+                    <p>View and track your submitted tickets</p>
+                </div>
+
+                <div class="tickets-container">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>Filter by:</label>
+                            <select id="filterMyStatus">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                            <select id="filterMyType">
+                                <option value="all">All Types</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="printer">Printer</option>
+                                <option value="networking">Networking</option>
+                            </select>
+                        </div>
+                        <button class="btn-refresh" onclick="loadMyTickets()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="tickets-list" id="myTicketsList">
+                        <!-- Tickets will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Status Section -->
+            <section id="status" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Ticket Status</h2>
+                    <p>Real-time tracking of your tickets</p>
+                </div>
+
+                <div class="status-container">
+                    <div class="status-stats">
+                        <div class="stat-card total">
+                            <i class="fas fa-ticket-alt"></i>
+                            <div>
+                                <h3 id="myTotalTickets">0</h3>
+                                <p>Total Tickets</p>
+                            </div>
+                        </div>
+                        <div class="stat-card pending">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3 id="myPendingTickets">0</h3>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                        <div class="stat-card progress">
+                            <i class="fas fa-spinner"></i>
+                            <div>
+                                <h3 id="myProgressTickets">0</h3>
+                                <p>In Progress</p>
+                            </div>
+                        </div>
+                        <div class="stat-card resolved">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3 id="myResolvedTickets">0</h3>
+                                <p>Resolved</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-chart">
+                        <h3><i class="fas fa-chart-bar"></i> Status Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Help Section -->
+            <section id="help" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-question-circle"></i> Help & Support</h2>
+                    <p>Guidelines and contact information</p>
+                </div>
+
+                <div class="help-container">
+                    <div class="help-cards">
+                        <div class="help-card">
+                            <i class="fas fa-laptop"></i>
+                            <h3>Laptop Issues</h3>
+                            <ul>
+                                <li>Note down error codes</li>
+                                <li>Check power connection</li>
+                                <li>Try restarting first</li>
+                            </ul>
+                        </div>
+                        <div class="help-card">
+                            <i class="fas fa-print"></i>
+                            <h3>Printer Issues</h3>
+                            <ul>
+                                <li>Check paper and ink</li>
+                                <li>Verify network connection</li>
+                                <li>Restart printer</li>
+                            </ul>
+                        </div>
+                        <div class="help-card">
+                            <i class="fas fa-wifi"></i>
+                            <h3>Networking</h3>
+                            <ul>
+                                <li>Check cable connections</li>
+                                <li>Restart router/modem</li>
+                                <li>Verify WiFi password</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3><i class="fas fa-headset"></i> Contact IT Support</h3>
+                        <div class="contact-details">
+                            <p><i class="fas fa-phone"></i> <strong>Helpdesk:</strong> 1800-XXX-XXXX</p>
+                            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> support@campus.edu</p>
+                            <p><i class="fas fa-clock"></i> <strong>Timings:</strong> Mon-Sat, 9AM-6PM</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> IT Building, Room 101</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="user-footer">
+            <p>Campus IT Support System • User Access Only • <span id="currentDate"></span></p>
+        </footer>
+    </div>
+
+    <!-- Ticket Details Modal -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script src="user.js"></script>
+</body>
+</html>
